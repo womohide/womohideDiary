@@ -38,15 +38,15 @@ li {
 #navi p a{
   display: block;
   padding: 14px;
-  height: 16px;
+  height: 17px;
   
 }
 p.navi a{
   background-color: aqua;
 }
 p.current a{
-  background-color:darkcyan;
-  color:mediumblue;
+  background-color:darkblue;
+  color:coral;
 }
 
 #footer{
