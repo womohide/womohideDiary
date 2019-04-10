@@ -12,8 +12,7 @@ li {
 }
 
 #page{
-    max-width: 1080px;
-    min-width: 470px;
+    width: 1080px;
     background-color: rgb(210, 210, 210);
     font-size: 14px;
     color:dimgrey;
