@@ -3,6 +3,10 @@ body{
   letter-spacing: 0.1em;
 }
 
+body a{
+  text-decoration: none;
+}
+
 li {
   list-style: none;
 }
@@ -20,20 +24,55 @@ li {
   padding: 40px 20px;
   background-color: rgb(230, 230, 230);
 }
-
-p.current {
+#navi{
+  width: 1080px;
+  overflow: hidden+
+}
+#navi p{
   float: left;
+  width:150px;
+  margin-right:1px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 14px;
+}
+#navi p a{
+  display: block;
+  padding: 14px;
+  height: 16px;
+  
+}
+p.navi a{
+  background-color: aqua;
+}
+p.current a{
   background-color:darkcyan;
   color:mediumblue;
-  padding:10px 10px 10px;
-  margin: 10px 10px 10px;
-  font-size:20px;
 }
 
-p.navi {
-  float: left;
-  padding:10px 10px 10px;
-  margin: 10px 10px 10px;
-  font-size:20px;
+#footer{
+  clear:both;
 }
-
+#news{
+  clear:both;
+  padding: 14px;
+  margin: 14px;
+}
+#news dl{
+  padding: 14px;
+  margin: 14px;
+}
+#whois{
+  clear:both;
+  padding: 14px;
+  margin: 14px;
+}
+#whois ul{
+  padding: 14px;
+  margin: 14px;
+}
+#contacts{
+  clear:both;
+  padding: 14px;
+  margin: 14px;
+}
