@@ -75,3 +75,25 @@ p.current a{
   padding: 14px;
   margin: 14px;
 }
+#contents{
+  clear: both;
+  background-color: azure;
+  padding: 20px;
+  margin: 20px;
+}
+#contents h1{
+  font-size: 20px;
+}
+#contents p{
+  font-size: 16px
+}
+#list{
+  clear: both;
+  background-color: azure;
+  padding: 14px;
+  margin: 14px;
+}
+#list ul{
+    padding: 14px;
+  margin: 14px;
+}
