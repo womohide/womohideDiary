@@ -7,13 +7,14 @@ import shutil
 #when book review, title is book title
 
 def getcurrentlist():
-    pathlist=os.listdir(os.path.dirname(os.path.abspath(__file__)))
+    pypath=os.path.dirname(os.path.abspath(__file__))
     return pypath
 
 def check_newfiles(rawd,listxt):
     newlist=[fina for fina in [filename for filename in os.listdir(rawd) if ".txt" in filename] if not fina.startswith('.')]
     with open(listxt) as f:
-        oldlist = f.readlines()
+        noldlist = f.readlines()
+    oldlist=[ffi.replace("\n","") for ffi in noldlist]
     newones=list(set(newlist)-set(oldlist))
     return newones
 
@@ -48,7 +49,7 @@ def make_contents(rawtxtpath):
             pass
         else:
             pcon+=str(rt_replace[lin])   
-    
+    txtname=rawtxtpath.split("/")[-1]
     return category,daten,articlen,pcon,txtname
 
 def make_newhtml(category,date,title,pcon,pypath,txtn):
@@ -67,7 +68,7 @@ def make_newhtml(category,date,title,pcon,pypath,txtn):
         newartipath = pypath+"/docs/book_review/br_%s_%s.html"%(date,title)
         newarelpath = "book_review/br_%s_%s.html"%(date,title)
         caten = "書評"
-    elif category == "lsit":
+    elif category == "list":
         basehtml = pypath+"/docs/list/basehtml/l_base.html"
         listhtml = pypath+"/docs/list.html"
         listxtpath = pypath+"/docs/list/llist.txt"
@@ -111,20 +112,24 @@ llistp=pypath+("/docs/list/llist.txt")
 rawd=pypath+("/docs/rawtxt")
 
 newone=check_newfiles(artrawd,arlistp)
+count =0
 if len(newone) !=0:
     for ne in newone:
+        count += 1
         shutil.copy2(os.path.join(artrawd,ne),os.path.join(rawd,ne))
         category,daten,articlen,pcon,ttn = make_contents(os.path.join(artrawd,ne))
         make_newhtml(category,daten,articlen,pcon,pypath,ttn)
 newone=check_newfiles(brtrawd,brlistp)
 if len(newone) !=0:
     for ne in newone:
+        count += 1
         shutil.copy2(os.path.join(brtrawd,ne),os.path.join(rawd,ne))
         category,daten,articlen,pcon,ttn = make_contents(os.path.join(brtrawd,ne))
         make_newhtml(category,daten,articlen,pcon,pypath,ttn)
 newone=check_newfiles(ltrawd,llistp)
 if len(newone) !=0:
     for ne in newone:
+        count += 1
         shutil.copy2(os.path.join(ltrawd,ne),os.path.join(rawd,ne))
         category,daten,articlen,pcon,ttn = make_contents(os.path.join(ltrawd,ne))
         make_newhtml(category,daten,articlen,pcon,pypath,ttn)

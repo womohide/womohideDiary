@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang=ja>
+  <head>
+    <meta charset="utf-8">
+    <title>ヲモヒデ倶楽部日報</title>
+    <link rel="stylesheet" href="../css/style.css">
+  </head>
+  <body>
+    <div id="page">
+      <div id="title">
+        <a href="../index.html"><img src="../images/logo/logomini.png" alt="ヲモヒデ倶楽部日報"></a>
+      </div>
+      <div id="navi">
+        <p class="navi"><a href="../index.html">HOME</a></p>
+        <p class="navi"><a href="../profile.html">Profile</a></p>
+        <p class="current"><a href="../list.html">日報一覧</a></p>
+        <p class="navi"><a href="../article_review.html">論文解説一覧</a></p>
+        <p class="navi"><a href="../book_review.html">書評一覧</a></p>
+        <p class="navi"><a href="../neuroscience.html">神経科学要論</a></p>
+        <p class="navi"><a href="../contact.html">contact</a></p>
+      </div>
+      
+      <div id=contents>
+        <h1>ブログの自動生成プログラムの作成</h1>
+        <p>読んだ論文や本について思ったこと、作ったもの、書いたコードについて記録する目的でブログを作りたいと思った。私のいくつかの価値観に基づいてブログを効率的に書くために必要なソフトウェアを探した。しかし、良いものは見つからなかった。そこでHTMLやCSS、Java Scriptの勉強も兼ねて自分でブログを書くためのプログラムを作成した。私にとって必要な要素は以下の通りだ。<br><em><strong>一つ、わかりやすいraw textが残ること。</strong></em><br><em><strong>二つ、webページを構成する全ての要素を手元に保管できること</strong></em><br><em><strong>三つ、ブラックボックスを可能な限り少なくすること</strong></em><br>これらは、自分の記録を望んだ形で表現することができなくなるリスクを低減させることを目的として挙げられている条件である。わかりやすい(=操作しやすい)形式で書かれたraw textとジェネレータが手元に残っていれば、何らかの理由でwebページが失われた場合でも簡単に再生することができるであろう。<br>実際にHTMLとCSSでブログの外形を書き始めた時、私が望むシンプルな形式のブログには入り組んだ複雑なソフトウェアは必ずしも必要でないことに気づいた。ベースのhtmlファイルを作成し、そこにテキストファイルで書いた内容を挿入すれば済む話のように思われた。ブログを公開するにあたってはGitHub Pagesを利用することを考えていた。GitHub Pagesでは動的なwebサイトを作ることはできないため、webページは特に簡単なものになった。ブログのカテゴリを３つに分けてカテゴリごとにフォルダ構造を整理し、あるカテゴリのあるフォルダにtxtファイルを入れるとtxtファイルのタイトルと保存したディレクトリから自動で記事が生成されるように手配した。これらのコードはPythonですぐに実装することができた。GitHub PagesのローカルリポジトリはGoogle Drive上にある。次の目的はRaspberry Piを用いて自動でGoogle Driveを更新して原稿があるかを確認しwebページを生成してリモートリポジトリにpushできるようにすることである。</p>
+      </div>
+      
+      <div id="footer">
+        <small>&copy;2019 ヲモヒデ倶楽部. All Riights Reserved.</small>
+      </div>
+    </div>
+  </body>
+</html>
