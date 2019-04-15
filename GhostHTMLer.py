@@ -18,11 +18,20 @@ def check_newfiles(rawd,listxt):
     return newones
 
 def replace_link(strl):
-    if len(strl.split("](")) == 2:
+    for i in range(strl.count("](")):
         word=strl.split('](')[0].split('[')[-1]
         link=strl.split('](')[1].split(')')[0]
         newstrl='<a href="%s">[%s]</a>'%(link,word)
         strl=strl.replace("[%s](%s)"%(word,link),newstrl)
+    while strl.count("***") != 0:
+        strl=strl.replace('***','<em><strong>',1)
+        strl=strl.replace('***','</strong></em>',1)
+    while strl.count("**") != 0:
+        strl=strl.replace('**','<strong>',1)
+        strl=strl.replace('**','</strong>',1)
+    while strl.count("*") != 0:
+        strl=strl.replace('*','<em>',1)
+        strl=strl.replace('*','</em>',1)
     return strl
 
 def make_contents(rawtxtpath):
