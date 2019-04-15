@@ -79,9 +79,10 @@ def make_newhtml(category,date,title,pcon,pypath,txtn):
         pass
     ltitle = '[%s][%s]%s'%(date,caten,title)
     ltitle2 = '[%s]%s'%(caten,title)
+    ltitle3 = '[%s]%s'%(date,title)
     with open(basehtml) as f:
         article = f.readlines()
-    article_replace = [l.replace('titleinsertion', title) for l in [ll.replace("pcontents",pcon) for ll in article]]
+    article_replace = [l.replace('titleinsertion', ltitle3) for l in [ll.replace("pcontents",pcon) for ll in article]]
     with open(newartipath, mode = 'w') as ff:
         ff.writelines(article_replace)
     with open(listxtpath, mode = "a") as fff:
