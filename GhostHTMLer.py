@@ -88,15 +88,15 @@ def make_newhtml(category,date,title,pcon,pypath,txtn):
         fff.write(txtn+"\n")
     with open(listhtml) as f4:
         listht = f4.readlines()
-    listht.insert(25,'            <li><a href="%s">%s</a></li>\n'%(newarelpath,ltitle))
+    listht.insert(27,'            <li><a href="%s">%s</a></li>\n'%(newarelpath,ltitle))
     with open(listhtml, mode = 'w') as f5:
         f5.writelines(listht)
     with open(pypath+"/docs/index.html") as f6:
         indexhtml = f6.readlines()
-    if len(indexhtml) >= 42:
-        del indexhtml[31:33]
-    indexhtml.insert(27,"          <dt>%s</dt>\n"%(ldate))
-    indexhtml.insert(28,'          <dd><a href="%s">%s</a></dd>\n'%(newarelpath,ltitle2))
+    if len(indexhtml) >= 44:
+        del indexhtml[33:35]
+    indexhtml.insert(29,"          <dt>%s</dt>\n"%(ldate))
+    indexhtml.insert(30,'          <dd><a href="%s">%s</a></dd>\n'%(newarelpath,ltitle2))
     with open(pypath+"/docs/index.html", mode = 'w') as f7:
         f7.writelines(indexhtml)
 
