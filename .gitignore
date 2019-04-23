@@ -36,3 +36,5 @@ Thumbs.db
 *.tmp
 # Vagrant specific
 .vagrant/
+
+
