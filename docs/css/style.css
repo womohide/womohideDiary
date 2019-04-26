@@ -26,7 +26,7 @@ li {
   background-color: rgb(230, 230, 230);
 }
 #title img{
-  width: 100%;
+  object-fit:scale-down;
 }
 #navi{
   width: 100%;
@@ -40,8 +40,11 @@ li {
   vertical-align: middle;
   font-size: 14px;
 }
-#mainvisual img{
+#mainvisual{
   width: 100%;
+}
+#mainvisual img{
+  object-fit: scale-down;
 }
 
 #navi p a{
