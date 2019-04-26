@@ -44,7 +44,7 @@ li {
   width: 100%;
 }
 #mainvisual img{
-  object-fit: scale-down;
+  width: 100%;
 }
 
 #navi p a{
