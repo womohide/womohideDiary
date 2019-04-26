@@ -26,7 +26,7 @@ li {
   background-color: rgb(230, 230, 230);
 }
 #title img{
-  object-fit:scale-down;
+  width: 100%;
 }
 #navi{
   width: 100%;
