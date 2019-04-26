@@ -18,6 +18,30 @@ def check_newfiles(rawd,listxt):
     newones=list(set(newlist)-set(oldlist))
     return newones
 
+def markdowncode(rawtext):
+    tflag="off"
+    
+    newtext=[]
+    for index,item in enumerate(rawtext):
+        if item.count("~~~")>=1:
+            if tflag == "off":
+                tflag = "on"
+            else:
+                tflag = "off"
+                item=item.replace("\n","").replace('~~~','</code></pre><p>')+"@@@@@"
+        if tflag == "on":
+            if item.count("~~~") >=1:
+                if len(item.split("~~~")) >=1:
+                    lang=item.replace("\n","").split("~~~")[1].lower()
+                    newtext.append('</p><pre class="%s"><code>'%("prettyprint lang-"+lang)+"@@@@@")
+                else:
+                    newtext.append('</p><pre class="prettyprint"><code>'+"@@@@@")
+            else:
+                newtext.append(item.replace("\n","").replace("&","&amp;").replace("<","&lt;").replace(">","&gt;")+"@@@@@")
+        else:
+            newtext.append(item)
+    return newtext
+
 def replace_link(strl):
     for i in range(strl.count("](")):
         word=strl.split('](')[0].split('[')[-1]
@@ -42,7 +66,8 @@ def make_contents(rawtxtpath):
     category=rawtxtpath.split("/")[-3]
     with open(rawtxtpath) as rawt:
         rt = rawt.readlines()
-    rt_replace=[replace_link(li.replace("\n","<br>")) for li in rt]
+    rt = markdowncode(rt)
+    rt_replace=[replace_link(li.replace("\n","<br>").replace("@@@@@","\n")) for li in rt]
     pcon = str(rt_replace[0])
     for lin in range(len(rt_replace)):
         if lin == 0:
@@ -89,15 +114,15 @@ def make_newhtml(category,date,title,pcon,pypath,txtn):
         fff.write(txtn+"\n")
     with open(listhtml) as f4:
         listht = f4.readlines()
-    listht.insert(27,'            <li><a href="%s">%s</a></li>\n'%(newarelpath,ltitle))
+    listht.insert(37,'            <li><a href="%s">%s</a></li>\n'%(newarelpath,ltitle))
     with open(listhtml, mode = 'w') as f5:
         f5.writelines(listht)
     with open(pypath+"/docs/index.html") as f6:
         indexhtml = f6.readlines()
-    if len(indexhtml) >= 44:
-        del indexhtml[33:35]
-    indexhtml.insert(29,"          <dt>%s</dt>\n"%(ldate))
-    indexhtml.insert(30,'          <dd><a href="%s">%s</a></dd>\n'%(newarelpath,ltitle2))
+    if len(indexhtml) >= 57:
+        del indexhtml[43:45]
+    indexhtml.insert(39,"          <dt>%s</dt>\n"%(ldate))
+    indexhtml.insert(40,'          <dd><a href="%s">%s</a></dd>\n'%(newarelpath,ltitle2))
     with open(pypath+"/docs/index.html", mode = 'w') as f7:
         f7.writelines(indexhtml)
 
