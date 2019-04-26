@@ -12,7 +12,8 @@ li {
 }
 
 #page{
-    width: 1080px;
+    max-width: 1080px;
+    min-width: 640px;
     background-color: rgb(210, 210, 210);
     font-size: 14px;
     color:dimgrey;
@@ -24,7 +25,8 @@ li {
   background-color: rgb(230, 230, 230);
 }
 #navi{
-  width: 1080px;
+  max-width: 1080px;
+  min-width: 640px;
   overflow: hidden+
 }
 #navi p{
