@@ -21,8 +21,8 @@ li {
 }
 
 #title {
-  width:100%;
-  padding: 40px 20px;
+  width:95%;
+  padding: 10px 2.5%;
   background-color: rgb(230, 230, 230);
 }
 #navi{
@@ -37,12 +37,17 @@ li {
   vertical-align: middle;
   font-size: 14px;
 }
+#mainvisual img{
+  width: 100%;
+}
+
 #navi p a{
   display: block;
   padding: 14px;
   height: 17px;
   
 }
+
 p.navi a{
   background-color: aqua;
 }
