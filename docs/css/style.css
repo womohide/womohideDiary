@@ -25,6 +25,9 @@ li {
   padding: 10px 2.5%;
   background-color: rgb(230, 230, 230);
 }
+# title img{
+  width: 100%;
+}
 #navi{
   width: 100%;
   overflow: hidden+
