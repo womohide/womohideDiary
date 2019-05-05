@@ -39,7 +39,20 @@ def markdowncode(rawtext):
             else:
                 newtext.append(item.replace("\n","").replace("&","&amp;").replace("<","&lt;").replace(">","&gt;")+"@@@@@")
         else:
-            newtext.append(item)
+            sharpn=item.count("#")
+            if sharpn>=1:
+                if sharpn==1:
+                    newtext.append(item.split("\n")[0].replace("#","</p><h%s>"%(int(sharpn+1)))+"</h%s><p>\n"%(int(sharpn+1)))
+                elif sharpn==2:
+                    newtext.append(item.split("\n")[0].replace("##","</p><h%s>"%(int(sharpn+1)))+"</h%s><p>\n"%(int(sharpn+1)))
+                elif sharpn==3:
+                    newtext.append(item.split("\n")[0].replace("###","</p><h%s>"%(int(sharpn+1)))+"</h%s><p>\n"%(int(sharpn+1)))
+                elif sharpn==4:
+                    newtext.append(item.split("\n")[0].replace("####","</p><h%s>"%(int(sharpn+1)))+"</h%s><p>\n"%(int(sharpn+1)))
+                else:
+                    newtext.append(item.split("\n")[0].replace("#####","</p><h%s>"%(int(sharpn+1)))+"</h%s><p>\n"%(int(sharpn+1)))
+            else:
+                newtext.append(item)
     return newtext
 
 def replace_link(strl):

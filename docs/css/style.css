@@ -20,6 +20,48 @@ li {
     margin: 50px auto;
 }
 
+#page h1{
+  padding: 0.1em;
+  color:#bbbbbb;
+  background: #002FA7;
+  border-bottom: solid 3px #103FB7;
+}
+#page h2{
+  font-size:145%;
+  padding: 0.1em;
+  color: #FFD700;
+  background: #002FA7;
+  border-bottom: solid 3px #103FB7;
+}
+#page h3{
+  font-size:135%;
+  padding: 0.1em;
+  color: #FFD700;
+  background: #002FA7;
+  border-bottom: solid 3px #103FB7;
+}
+#page h4{
+  font-size:130%;
+  padding: 0.1em;
+  color: #FFD700;
+  background: #002FA7;
+  border-bottom: solid 3px #103FB7;
+}
+#page h5{
+  font-size:125%;
+  padding: 0.1em;
+  color: #FFD700;
+  background: #002FA7;
+  border-bottom: solid 3px #103FB7;
+}
+#page h6{
+  font-size:120%;
+  padding: 0.1em;
+  color: #FFD700;
+  background: #002FA7;
+  border-bottom: solid 3px #103FB7;
+}
+
 #title {
   width:95%;
   padding: 10px 2.5%;

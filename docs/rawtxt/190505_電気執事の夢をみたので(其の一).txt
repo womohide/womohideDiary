@@ -1,0 +1,55 @@
+#Introduction
+執事が欲しいなぁと思ったので作ることにした。まずは簡単な機能から始めようと思うが、行く行くは研究スケジュールを自動で立てて一日のタスクを全てスケジューリングするところまでさせたいと思っている。
+今回はとりあえず下準備としてRaspberry Piのインストール及び初期設定を行う。
+#materials and method
+Raspberry Pi3 model B+
+#Results
+##Rapberry Piの初期設定
+###OSインストール
+OSにはRaspbianを選択。
+[ラズベリーパイ公式サイト](https://www.raspberrypi.org/downloads/raspbian/)からdesktop版をダウンロード、ガイドに従ってインストール。インストールにはUbntuのPCを使用。
+が、いきなりハマる。ddでimgインストールしようとすると
+~~~
+dd: opening `/dev/mmcblk0': Read-only file system
+~~~
+などとのたまふ。如何はせむとて調べてみるにつれ、どうやらmicroSDではずれを引いたらしい。SDカードリーダなどのロックを確認したりsudoでやったり、FAT32でフォーマットしなおしたりext4でフォーマットしたりした色々試みたがRead-only file systemと言われる。最後の最後FAT32でフォーマットしたのちに、macでインストールするとあっさりインストールできた。理由はわからない。
+###初期設定-パーティションの拡大
+~~~
+$ sudo raspi-sonfig
+~~~
+で設定画面が出るのでAdvanced optionから選択する。
+###初期設定-ユーザ名変更
+デフォルトだとユーザpiが存在することが一般に知られている。これではセキュリティ的に具合が悪いのでpiユーザは消してsudo権限を持つユーザを追加する、というのを考えたが、どうやらこれはよくないらしい。piユーザが所有者のファイルがある場合、piユーザを削除することでrootでしか触れなくなるため、エラーが発生する可能性があるらしい。むべなるかな。
+piユーザを削除するのではなくpiユーザの名前を変更するのがよいというのを風の噂で聞いたのでそのようにする。
+####初期設定-ユーザ名変更-tmpユーザ作成
+~~~
+# useraddでユーザを新規作成オプションの-Mはホームディレクトリを作成しないことを示す。どうせこのアカウントは消すので作らなくてよい
+$ sudo useradd -M tmp
+# コマンドgpasswdはユーザのグループ情報の操作を担う。オプション-a XX YYでユーザXXをグループYYに追加できる。
+$ sudo gpasswd -a tmp sudo
+# tmpユーザのパスワード設定
+$ sudo passwd tmp
+# piユーザをログアウト。これからの作業はtmpユーザで行う。
+$ exit
+~~~
+####初期設定-ユーザ名変更-ユーザ名piをXXXXXに変更
+~~~
+# usermod -l XXX YYYでユーザ名YYYをXXXに変更できる。例ではpiからnewpiに変更
+$ sudo usermod -l newpi pi
+# usermod -d -mでホームディレクトリを/home/piから/home/newpiに変更。
+# -dオプションで作業ディレクトリの変更。
+# -mオプションの併用で"usermod -d ディレクトリ -m ユーザー名"とコマンドを打つとホームディレクトリを移動し以前と同じホームディレクトリが使えるようになる。
+$ sudo usermod -d /home/newpi -m newpi
+# groupmod -nでpiグループをnewpiグループに変更
+$ sudo groupmod -n newpi pi
+# ログアウト。tmpユーザはもう用済み。
+$ exit
+~~~
+####初期設定-ユーザ名変更-tmpユーザ削除
+~~~
+# 仮ユーザを削除
+$ sudo userdel tmp
+# newpiユーザのパスワードを変更
+$ sudo passwd newpi
+~~~
+これでユーザ名変更は終わり。次はデータの保存などをやるためにGoogle driveを使えるようにする。

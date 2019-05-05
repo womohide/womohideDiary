@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang=ja>
+  <head>
+    <meta charset="utf-8">
+    <title>ヲモヒデ倶楽部日報</title>
+    <meta content="ヲモヒデ倶楽部の日報。脳神経科学の論文解説やSF小説の書評など" name="description">
+    <link rel="stylesheet" type="text/css" href="../css/sons-of-obsidian.css">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="../css/style.css">
+  </head>
+  <body>
+    <div id="page">
+      <div id="title">
+        <a href="../index.html"><img src="../images/logo/logomini.png" alt="ヲモヒデ倶楽部日報"></a>
+      </div>
+      <div id="navi">
+        <p class="navi"><a href="../index.html">HOME</a></p>
+        <p class="navi"><a href="../profile.html">Profile</a></p>
+        <p class="current"><a href="../list.html">日報一覧</a></p>
+        <p class="navi"><a href="../article_review.html">論文解説一覧</a></p>
+        <p class="navi"><a href="../book_review.html">書評一覧</a></p>
+        <p class="navi"><a href="../neuroscience.html">神経科学要論</a></p>
+        <p class="navi"><a href="../contact.html">contact</a></p>
+      </div>
+      
+      <div id=contents>
+        <h1>[190505]電気執事の夢をみたので(其の一)</h1>
+        <p></p><h2>Introduction</h2><p><br>執事が欲しいなぁと思ったので作ることにした。まずは簡単な機能から始めようと思うが、行く行くは研究スケジュールを自動で立てて一日のタスクを全てスケジューリングするところまでさせたいと思っている。<br>今回はとりあえず下準備としてRaspberry Piのインストール及び初期設定を行う。<br></p><h2>materials and method</h2><p><br>Raspberry Pi3 model B+<br></p><h2>Results</h2><p><br></p><h3>Rapberry Piの初期設定</h3><p><br></p><h4>OSインストール</h4><p><br>OSにはRaspbianを選択。<br><a href="https://www.raspberrypi.org/downloads/raspbian/">[ラズベリーパイ公式サイト]</a>からdesktop版をダウンロード、ガイドに従ってインストール。インストールにはUbntuのPCを使用。<br>が、いきなりハマる。ddでimgインストールしようとすると<br></p><pre class="prettyprint lang-"><code>
+dd: opening `/dev/mmcblk0': Read-only file system
+</code></pre><p>
+などとのたまふ。如何はせむとて調べてみるにつれ、どうやらmicroSDではずれを引いたらしい。SDカードリーダなどのロックを確認したりsudoでやったり、FAT32でフォーマットしなおしたりext4でフォーマットしたりした色々試みたがRead-only file systemと言われる。最後の最後FAT32でフォーマットしたのちに、macでインストールするとあっさりインストールできた。理由はわからない。<br></p><h4>初期設定-パーティションの拡大</h4><p><br></p><pre class="prettyprint lang-"><code>
+$ sudo raspi-sonfig
+</code></pre><p>
+で設定画面が出るのでAdvanced optionから選択する。<br></p><h4>初期設定-ユーザ名変更</h4><p><br>デフォルトだとユーザpiが存在することが一般に知られている。これではセキュリティ的に具合が悪いのでpiユーザは消してsudo権限を持つユーザを追加する、というのを考えたが、どうやらこれはよくないらしい。piユーザが所有者のファイルがある場合、piユーザを削除することでrootでしか触れなくなるため、エラーが発生する可能性があるらしい。むべなるかな。<br>piユーザを削除するのではなくpiユーザの名前を変更するのがよいというのを風の噂で聞いたのでそのようにする。<br></p><h5>初期設定-ユーザ名変更-tmpユーザ作成</h5><p><br></p><pre class="prettyprint lang-"><code>
+# useraddでユーザを新規作成オプションの-Mはホームディレクトリを作成しないことを示す。どうせこのアカウントは消すので作らなくてよい
+$ sudo useradd -M tmp
+# コマンドgpasswdはユーザのグループ情報の操作を担う。オプション-a XX YYでユーザXXをグループYYに追加できる。
+$ sudo gpasswd -a tmp sudo
+# tmpユーザのパスワード設定
+$ sudo passwd tmp
+# piユーザをログアウト。これからの作業はtmpユーザで行う。
+$ exit
+</code></pre><p>
+</p><h5>初期設定-ユーザ名変更-ユーザ名piをXXXXXに変更</h5><p><br></p><pre class="prettyprint lang-"><code>
+# usermod -l XXX YYYでユーザ名YYYをXXXに変更できる。例ではpiからnewpiに変更
+$ sudo usermod -l newpi pi
+# usermod -d -mでホームディレクトリを/home/piから/home/newpiに変更。
+# -dオプションで作業ディレクトリの変更。
+# -mオプションの併用で"usermod -d ディレクトリ -m ユーザー名"とコマンドを打つとホームディレクトリを移動し以前と同じホームディレクトリが使えるようになる。
+$ sudo usermod -d /home/newpi -m newpi
+# groupmod -nでpiグループをnewpiグループに変更
+$ sudo groupmod -n newpi pi
+# ログアウト。tmpユーザはもう用済み。
+$ exit
+</code></pre><p>
+</p><h5>初期設定-ユーザ名変更-tmpユーザ削除</h5><p><br></p><pre class="prettyprint lang-"><code>
+# 仮ユーザを削除
+$ sudo userdel tmp
+# newpiユーザのパスワードを変更
+$ sudo passwd newpi
+</code></pre><p>
+これでユーザ名変更は終わり。次はデータの保存などをやるためにGoogle driveを使えるようにする。</p>
+      </div>
+      
+      <div id="footer">
+        <small>&copy;2019 ヲモヒデ倶楽部. All Riights Reserved.</small>
+      </div>
+    </div>
+  <script type="text/javascript" src="../js/prettify.js"></script>
+  <script>prettyPrint();</script>
+  </body>
+</html>
