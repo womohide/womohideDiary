@@ -31,34 +31,31 @@ li {
   padding: 0.1em;
   color: #FFD700;
   background: #002FA7;
-  border-bottom: solid 3px #103FB7;
+  border-bottom: solid 3px #102FE7;
 }
 #page h3{
   font-size:135%;
   padding: 0.1em;
-  color: #FFD700;
-  background: #002FA7;
-  border-bottom: solid 3px #103FB7;
+  color: #002FA7;
+  background: #FFD700;
+  border-bottom:   3px #103FB7;
 }
 #page h4{
   font-size:130%;
   padding: 0.1em;
-  color: #FFD700;
-  background: #002FA7;
+  color: #002FA7;
   border-bottom: solid 3px #103FB7;
 }
 #page h5{
   font-size:125%;
   padding: 0.1em;
-  color: #FFD700;
-  background: #002FA7;
+  color: #002FA7;
   border-bottom: solid 3px #103FB7;
 }
 #page h6{
   font-size:120%;
   padding: 0.1em;
-  color: #FFD700;
-  background: #002FA7;
+  color: #002FA7;
   border-bottom: solid 3px #103FB7;
 }
 
@@ -156,6 +153,7 @@ code{
   font-family: 'Andale Mono','Courier','ＭＳ ゴシック',monospace;
   overflow:auto;
   resize: horizontal;
+  font-size: 1.3em;
 }
 pre{
   overflow: scroll;
