@@ -1,6 +1,7 @@
 body{
   font-family: 'Hannotate TC','Verdana',sans-serif;
   letter-spacing: 0.1em;
+  overflow-y: scroll;
 }
 
 body a{
